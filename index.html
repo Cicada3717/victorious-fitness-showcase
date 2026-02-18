@@ -1,0 +1,2713 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Viktor Ristic – Fitness Coach</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Outfit:wght@200;300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #F5F0E8;
+      --cream-dark: #EDE5D8;
+      --warm: #FAF7F2;
+      --brown: #5C3D1E;
+      --brown-mid: #7A5230;
+      --brown-light: #A67C52;
+      --wood: #C4956A;
+      --wood-light: #DEB896;
+      --gold: #B8975A;
+      --ink: #1A140D;
+      --ink-mid: #2E2318;
+      --muted: #8A7560;
+      --border: rgba(92, 61, 30, 0.12);
+      --green: #2C3E2D;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--warm);
+      color: var(--ink);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      /* Editorial spacing */
+    }
+
+    /* ── TYPOGRAPHY ── */
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      /* Lighter by default */
+      line-height: 1.1;
+      color: var(--ink);
+    }
+
+    h1 em,
+    h2 em,
+    h3 em {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--gold);
+      /* Highlight color */
+    }
+
+    .eyebrow {
+      font-family: 'Outfit', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .eyebrow span {
+      position: relative;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ── LOADER ── */
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: var(--ink);
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      transition: opacity 0.8s, visibility 0.8s;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--cream);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.3s forwards;
+    }
+
+    .loader-line {
+      width: 0;
+      height: 1px;
+      background: var(--wood);
+      animation: expandLine 1.2s ease 0.6s forwards;
+    }
+
+    .loader-sub {
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--wood);
+      opacity: 0;
+      animation: fadeUp 0.6s ease 1s forwards;
+    }
+
+    @keyframes expandLine {
+      to {
+        width: 160px;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+
+    nav.scrolled {
+      background: rgba(250, 247, 242, 0.96);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-cta-btn {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 10px 20px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .nav-cta-btn:hover {
+      background: var(--brown);
+    }
+
+    .nav-menu-btn {
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .nav-menu-btn span {
+      display: block;
+      width: 16px;
+      height: 1px;
+      background: var(--ink);
+      transition: transform 0.3s;
+    }
+
+    /* ── MOBILE MENU ── */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--ink);
+      z-index: 600;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s, visibility 0.4s;
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--cream);
+      text-decoration: none;
+      padding: 16px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s, transform 0.4s, color 0.2s;
+    }
+
+    .mobile-menu.open a {
+      opacity: 1;
+      transform: none;
+    }
+
+    .mobile-menu a:nth-child(2) {
+      transition-delay: 0.05s;
+    }
+
+    .mobile-menu a:nth-child(3) {
+      transition-delay: 0.1s;
+    }
+
+    .mobile-menu a:nth-child(4) {
+      transition-delay: 0.15s;
+    }
+
+    .mobile-menu a:nth-child(5) {
+      transition-delay: 0.2s;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--wood-light);
+    }
+
+    .menu-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      color: var(--cream);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ── IMAGE TREATMENTS ── */
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      filter: sepia(0.15) contrast(1.1) brightness(0.95);
+      /* Warm, high-contrast look */
+      transition: filter 0.3s ease;
+    }
+
+    img:hover {
+      filter: sepia(0) contrast(1) brightness(1);
+      /* Reveal original on hover */
+    }
+
+    /* Grain Overlay Pattern */
+    .grain-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      mix-blend-mode: overlay;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--ink);
+      /* Dark background for premium feel */
+    }
+
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 100svh;
+    }
+
+    /* Left Content Column */
+    .hero-content {
+      padding: 120px 24px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      background: var(--ink);
+      /* Ensure text is readable */
+    }
+
+    /* Right Image Column - Cinematic */
+    .hero-img-col {
+      position: relative;
+      min-height: 50vh;
+      overflow: hidden;
+      /* Gradient Mask: Fades from transparent (left) to opaque (right) */
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 25%, black 100%);
+      background: var(--ink);
+      /* Match background behind fade */
+    }
+
+    /* Gold Tint & Vignette Overlay */
+    .hero-img-col::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      /* Heavy inner shadow + Gold tint */
+      background: radial-gradient(circle at 70% 40%, rgba(166, 124, 82, 0.1) 0%, rgba(26, 20, 13, 0.6) 80%, rgba(26, 20, 13, 1) 100%);
+      box-shadow: inset 100px 0 150px var(--ink);
+      /* Left edge fade */
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: multiply;
+    }
+
+    /* Decorative Line */
+    .hero-img-col::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      right: 10%;
+      bottom: 10%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      opacity: 0.3;
+      z-index: 3;
+    }
+
+    .hero-img-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      /* Cinematic Grade: Warm, Muted, Cohesive */
+      filter: sepia(0.3) saturate(0.8) contrast(1.1) brightness(0.8);
+      image-rendering: -webkit-optimize-contrast;
+      transform: scale(1.02);
+      /* Slight zoom to avoid edge artifacts */
+    }
+
+    /* Overlay only needed for mobile text readability if overlapping, but here we split */
+    .hero-overlay {
+      display: none;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .hero-eyebrow-line {
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-eyebrow-text {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--wood-light);
+    }
+
+    .hero-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(245, 240, 232, 0.6);
+      font-weight: 300;
+      margin-bottom: 28px;
+      max-width: 380px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-solid {
+      background: var(--cream);
+      color: var(--ink);
+      padding: 14px 32px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(245, 240, 232, 0.3);
+      color: var(--cream);
+      padding: 14px 28px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      margin-top: 32px;
+      border-top: 1px solid rgba(245, 240, 232, 0.1);
+    }
+
+    .h-stat {
+      flex: 1;
+      padding: 20px 0;
+      text-align: center;
+      border-right: 1px solid rgba(245, 240, 232, 0.06);
+    }
+
+    .h-stat:last-child {
+      border-right: none;
+    }
+
+    .h-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      color: var(--wood-light);
+      line-height: 1;
+    }
+
+    .h-stat-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.35);
+      margin-top: 4px;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee {
+      background: var(--ink);
+      overflow: hidden;
+      padding: 14px 0;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      gap: 40px;
+      animation: marquee 18s linear infinite;
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.35);
+      flex-shrink: 0;
+    }
+
+    .marquee-dot {
+      width: 3px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0)
+      }
+
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    /* ── SECTION COMMON ── */
+    .section-pad {
+      padding: 80px 24px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .eyebrow span {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .h2 em {
+      font-style: italic;
+      color: var(--brown-mid);
+    }
+
+    .body-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: var(--warm);
+    }
+
+    /* ── ABOUT IMAGE STACK ── */
+    .about-img-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .about-img-stack .about-img-placeholder {
+      margin-bottom: 0;
+    }
+
+    .about-img-placeholder {
+      width: 100%;
+      aspect-ratio: 2/3;
+      background: #1A140D;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--gold);
+      /* Premium border */
+      box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.3);
+      /* Lift off page */
+    }
+
+    .about-img-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .about-badge-float {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(250, 247, 242, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 12px 16px;
+      border-left: 2px solid var(--gold);
+    }
+
+    .about-badge-label {
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .about-badge-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: var(--ink);
+    }
+
+    .about-quote-block {
+      background: var(--cream);
+      border-left: 2px solid var(--gold);
+      padding: 20px;
+      margin: 28px 0;
+    }
+
+    .about-quote-block p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    .about-quote-block cite {
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-style: normal;
+      margin-top: 8px;
+      display: block;
+    }
+
+    .cred-list {
+      margin-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+
+    .cred-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--ink-mid);
+    }
+
+    .cred-arrow {
+      font-size: 10px;
+      color: var(--gold);
+    }
+
+    /* ── PROGRAMS ── */
+    .programs {
+      background: var(--cream);
+    }
+
+    .prog-tabs {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border);
+      margin: 28px 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      /* Snap for premium feel */
+    }
+
+    .prog-tab {
+      padding: 12px 20px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+      border-right: 1px solid var(--border);
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      /* Snap alignment */
+    }
+
+    .prog-tab:last-child {
+      border-right: none;
+    }
+
+    .prog-tab.active {
+      background: var(--ink);
+      color: var(--cream);
+    }
+
+    .prog-panel {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .prog-panel.active {
+      display: flex;
+    }
+
+    .prog-card {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      padding: 32px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .prog-card.featured {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .prog-card .prog-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 56px;
+      font-weight: 300;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .prog-card.featured .prog-num {
+      color: rgba(245, 240, 232, 0.06);
+    }
+
+    .prog-tag {
+      font-size: 8px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .prog-card.featured .prog-tag {
+      color: var(--wood-light);
+    }
+
+    .prog-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .prog-card.featured .prog-name {
+      color: var(--cream);
+    }
+
+    .prog-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .prog-card.featured .prog-desc {
+      color: rgba(245, 240, 232, 0.5);
+    }
+
+    .prog-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .prog-card.featured .prog-list {
+      border-top-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .prog-list li {
+      font-size: 12px;
+      color: var(--ink-mid);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .prog-card.featured .prog-list li {
+      color: rgba(245, 240, 232, 0.65);
+    }
+
+    .prog-list li::before {
+      content: '';
+      width: 16px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .prog-cta {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--brown);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .prog-card.featured .prog-cta {
+      color: var(--wood-light);
+    }
+
+    .prog-cta-arrow {
+      width: 20px;
+      height: 1px;
+      background: currentColor;
+      position: relative;
+    }
+
+    .prog-cta-arrow::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -2.5px;
+      width: 5px;
+      height: 5px;
+      border-right: 1px solid currentColor;
+      border-top: 1px solid currentColor;
+      transform: rotate(45deg);
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      background: var(--warm);
+    }
+
+    .testi-scroll-wrap {
+      margin-top: 32px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      display: flex;
+      gap: 16px;
+      padding-bottom: 16px;
+      margin-left: -24px;
+      margin-right: -24px;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .testi-scroll-wrap::-webkit-scrollbar {
+      display: none;
+    }
+
+    .testi-card {
+      min-width: 85vw;
+      max-width: 340px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      padding: 32px 24px;
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .testi-card::before {
+      content: '"';
+      position: absolute;
+      top: -8px;
+      right: 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 100px;
+      color: var(--border);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .testi-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 20px;
+    }
+
+    .star {
+      width: 11px;
+      height: 11px;
+      background: var(--gold);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    .testi-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testi-divider {
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .testi-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .testi-detail {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .testi-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .testi-ind-dot {
+      width: 16px;
+      height: 2px;
+      background: var(--border);
+      border-radius: 1px;
+      transition: background 0.3s, width 0.3s;
+    }
+
+    .testi-ind-dot.active {
+      background: var(--gold);
+      width: 28px;
+    }
+
+    /* ── STACKING CARDS TESTIMONIALS ── */
+    .sc-section {
+      background: var(--ink);
+      padding: 80px 0 0;
+    }
+
+    .sc-header {
+      text-align: center;
+      padding: 0 24px 48px;
+    }
+
+    .sc-scroll-zone {
+      position: relative;
+      height: 300vh;
+    }
+
+    .sc-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1200px;
+      overflow: hidden;
+    }
+
+    .sc-cards-container {
+      position: relative;
+      width: 360px;
+      height: 480px;
+    }
+
+    @media (max-width: 480px) {
+      .sc-cards-container {
+        width: 300px;
+        height: 420px;
+      }
+    }
+
+    .sc-card {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      border: 1px solid rgba(222, 184, 150, 0.2);
+      background: rgba(30, 24, 18, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      will-change: transform, opacity;
+      transform-origin: center bottom;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .sc-card-stars {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+
+    .sc-star {
+      width: 16px;
+      height: 16px;
+      fill: var(--gold);
+    }
+
+    .sc-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 4vw, 22px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .sc-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+      margin: 24px 0 20px;
+    }
+
+    .sc-person {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .sc-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(222, 184, 150, 0.3);
+      flex-shrink: 0;
+    }
+
+    .sc-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--cream);
+      letter-spacing: 0.5px;
+    }
+
+    .sc-detail {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 3px;
+      opacity: 0.8;
+    }
+
+    .sc-progress {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .sc-dot {
+      width: 20px;
+      height: 2px;
+      background: rgba(222, 184, 150, 0.25);
+      border-radius: 1px;
+      transition: background 0.3s, width 0.3s;
+    }
+
+    .sc-dot.active {
+      background: var(--gold);
+      width: 32px;
+    }
+
+    /* ── SCROLL EXPAND SECTION ── */
+    .scroll-expand-section {
+      position: relative;
+      height: 300vh;
+      /* Scroll distance */
+      background: var(--ink);
+    }
+
+    .scroll-expand-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--ink);
+    }
+
+    /* Background layer (fades out as video expands) */
+    .se-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, #2E2318 0%, var(--ink) 70%);
+      z-index: 0;
+    }
+
+    /* Video container — starts small, expands to full */
+    .se-video-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 16px;
+      overflow: hidden;
+      z-index: 2;
+      will-change: width, height, border-radius;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+      transition: box-shadow 0.3s;
+    }
+
+    .se-video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Text overlay — fades out as video expands */
+    .se-text {
+      position: absolute;
+      z-index: 3;
+      text-align: center;
+      pointer-events: none;
+      will-change: opacity, transform;
+    }
+
+    .se-text-top {
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .se-text-bottom {
+      bottom: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .se-eyebrow {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.8;
+      white-space: nowrap;
+    }
+
+    .se-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 8vw, 90px);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .se-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .se-scroll-hint {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.4);
+      white-space: nowrap;
+      animation: se-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes se-pulse {
+
+      0%,
+      100% {
+        opacity: 0.4;
+      }
+
+      50% {
+        opacity: 0.9;
+      }
+    }
+
+    .equipment .eyebrow::before {
+      background: var(--wood-light);
+    }
+
+    .equipment .eyebrow span {
+      color: var(--wood-light);
+    }
+
+    .equipment .h2 {
+      color: var(--cream);
+    }
+
+    .equipment .h2 em {
+      color: var(--wood-light);
+    }
+
+    .equipment .body-text {
+      color: rgba(245, 240, 232, 0.5);
+    }
+
+    .equip-img-wrap {
+      margin: 28px -24px 0;
+      position: relative;
+      overflow: hidden;
+      /* Blend sides: Fade left and right edges */
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+      background: var(--ink);
+      height: auto;
+      /* Allow content to dictate heght */
+    }
+
+    .equip-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .equip-img-wrap video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .equip-img-placeholder {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: #F8F5F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .equip-img-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center center;
+      padding: 20px;
+    }
+
+    .equip-label {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(250, 247, 242, 0.95);
+      backdrop-filter: blur(8px);
+      border-left: 2px solid var(--gold);
+      padding: 12px 16px;
+    }
+
+    .equip-label-tag {
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .equip-label-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--ink);
+      font-style: italic;
+    }
+
+    .equip-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      margin: 28px 0;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .equip-feat {
+      padding: 20px;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .equip-feat:nth-child(even) {
+      border-right: none;
+    }
+
+    .equip-feat:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+
+    .feat-icon {
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .feat-title {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+
+    .feat-desc {
+      font-size: 10px;
+      color: rgba(245, 240, 232, 0.35);
+      line-height: 1.5;
+    }
+
+    .equip-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--wood-light);
+      text-decoration: none;
+    }
+
+    /* ── BOOKING ── */
+    .booking {
+      background: var(--cream);
+    }
+
+    .form-field {
+      margin-bottom: 24px;
+    }
+
+    .f-label {
+      display: block;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .f-input,
+    .f-select,
+    .f-textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s;
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 0;
+    }
+
+    .f-input:focus,
+    .f-select:focus,
+    .f-textarea:focus {
+      border-bottom-color: var(--gold);
+    }
+
+    .f-input::placeholder,
+    .f-textarea::placeholder {
+      color: #C5B9A8;
+    }
+
+    .f-textarea {
+      resize: none;
+      min-height: 80px;
+    }
+
+    .f-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--ink);
+      color: var(--cream);
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 8px;
+      -webkit-appearance: none;
+      appearance: none;
+      transition: background 0.2s;
+    }
+
+    .f-submit:active {
+      background: var(--brown);
+    }
+
+    .contact-items {
+      margin-top: 40px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .c-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .c-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 3px;
+    }
+
+    .c-val {
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 60px 24px 32px;
+    }
+
+    .f-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--cream);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .f-sub {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--wood);
+      margin-bottom: 20px;
+    }
+
+    .f-desc {
+      font-size: 12px;
+      color: rgba(245, 240, 232, 0.3);
+      line-height: 1.7;
+      max-width: 280px;
+      margin-bottom: 24px;
+    }
+
+    .f-socials {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+
+    .f-social {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .f-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .f-col h4 {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.3);
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .f-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .f-col a {
+      font-size: 13px;
+      color: rgba(245, 240, 232, 0.5);
+      text-decoration: none;
+    }
+
+    .f-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .f-copy {
+      font-size: 10px;
+      color: rgba(245, 240, 232, 0.2);
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(.215, .61, .355, 1), transform 0.7s cubic-bezier(.215, .61, .355, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .stagger {
+      transition-delay: 0.08s;
+    }
+
+    .stagger-2 {
+      transition-delay: 0.16s;
+    }
+
+    .stagger-3 {
+      transition-delay: 0.24s;
+    }
+
+    /* ── PARALLAX IMG ── */
+    .parallax-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .parallax-img {
+      width: 100%;
+      transition: transform 0.1s linear;
+      will-change: transform;
+    }
+
+    /* ── HORIZONTAL SCROLL SECTION ── */
+    .h-scroll-section {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      display: flex;
+      gap: 16px;
+      padding: 0 24px 20px;
+      margin: 0 -24px;
+    }
+
+    .h-scroll-section::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* ── DESKTOP ENHANCEMENTS ── */
+    @media (min-width: 768px) {
+      nav {
+        padding: 32px 64px;
+      }
+
+      /* Side-by-Side Hero Layout */
+      .hero-container {
+        grid-template-columns: 0.9fr 1.1fr;
+        /* Text 45% / Image 55% */
+        align-items: stretch;
+      }
+
+      .hero-content {
+        padding: 0 80px;
+        /* More breathing room */
+        justify-content: center;
+      }
+
+      .hero-img-col {
+        min-height: 100vh;
+        height: auto;
+      }
+
+      .hero h1 {
+        font-size: 80px;
+      }
+
+      .section-pad {
+        padding: 120px 64px;
+      }
+
+      .h2 {
+        font-size: 52px;
+      }
+
+      .about-grid {
+        display: block;
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .about-content-centered {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .about-grid .eyebrow {
+        justify-content: center;
+      }
+
+      .about-grid .cred-item {
+        justify-content: center;
+        gap: 20px;
+        text-align: left;
+      }
+
+      .about-img-stack {
+        margin-bottom: 0;
+      }
+
+      .about-img-placeholder {
+        margin-bottom: 0;
+        aspect-ratio: 2/3;
+        height: auto;
+        min-height: 0;
+      }
+
+      .prog-panel {
+        flex-direction: row;
+      }
+
+      .prog-card {
+        flex: 1;
+      }
+
+      .testi-scroll-wrap {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .testi-card {
+        min-width: 340px;
+      }
+
+      .equip-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+
+      .equip-img-wrap {
+        margin: 0;
+      }
+
+      .booking-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+      }
+    }
+
+    /* ── INTERACTIVE EFFECTS ── */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      background-color: rgba(255, 255, 255, 0.3);
+      pointer-events: none;
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    button,
+    .btn-solid,
+    .btn-outline,
+    .nav-cta-btn,
+    .prog-tab,
+    .f-submit {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── SMOOTH SCROLL (LENIS) ── */
+    html.lenis {
+      height: auto;
+    }
+
+    .lenis.lenis-smooth {
+      scroll-behavior: auto;
+    }
+
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOADER -->
+  <div class="loader" id="loader">
+    <div class="loader-logo">Victorious</div>
+    <div class="loader-line"></div>
+    <div class="loader-sub">Viktor Ristic · Dubai</div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="menu-close" id="menuClose" aria-label="Close menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="1" y1="1" x2="17" y2="17" stroke="#F5F0E8" stroke-width="1.5" />
+        <line x1="17" y1="1" x2="1" y2="17" stroke="#F5F0E8" stroke-width="1.5" />
+      </svg>
+    </button>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#programs" onclick="closeMenu()">Programs</a>
+    <a href="#results" onclick="closeMenu()">Results</a>
+    <a href="#essentials" onclick="closeMenu()">Essentials</a>
+    <a href="#contact" onclick="closeMenu()">Work With Me</a>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">Viktor Ristic</a>
+    <div class="nav-right">
+      <a href="#contact" class="nav-cta-btn">Apply</a>
+      <button class="nav-menu-btn" id="menuBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-container">
+      <!-- Left: Content -->
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-line"></div>
+          <span class="hero-eyebrow-text">Elite Coaching · Dubai</span>
+        </div>
+        <h1>Train With<br />Purpose.<br /><em>Live Victorious.</em></h1>
+        <p class="hero-desc">Former Armed Forces trainer, certified nutritionist, and founder of Victorious Essentials.
+          Coaching people worldwide who are serious about change.</p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn-solid">Start Your Journey</a>
+          <a href="#programs" class="btn-outline">Programs ↓</a>
+        </div>
+        <div class="hero-stats">
+          <div class="h-stat">
+            <div class="h-stat-num">200+</div>
+            <div class="h-stat-label">Clients</div>
+          </div>
+          <div class="h-stat">
+            <div class="h-stat-num">5+</div>
+            <div class="h-stat-label">Years</div>
+          </div>
+          <div class="h-stat">
+            <div class="h-stat-num">12K</div>
+            <div class="h-stat-label">Community</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Image -->
+      <div class="hero-img-col">
+        <div class="grain-overlay"></div>
+        <!-- Viktor's photo - Red Shirt Training Shot -->
+        <img src="assets/img/about-viktor-training.png" alt="Viktor Ristic training"
+          style="object-position: center 25%;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <div class="marquee-item">
+        <div class="marquee-dot"></div>Online Coaching
+      </div>
+      <div class="marquee-item">
+        <div class="marquee-dot"></div>Body Transformation
+      </div>
+      <div class="marquee-item">
+        <div class="marquee-dot"></div>Nutrition Planning
+      </div>
+      <div class="marquee-item">
+        <div class="marquee-dot"></div>Mindset Coaching
+      </div>
+      <div class="marquee-item">
+        <div class="marquee-dot"></div>Victorious Essentials
+      </div>
+      <div class="marquee-item">
+        <div class="marquee-dot"></div>Dubai Based
+      </div>
+      <div class="marquee-item">
+        <div class="marquee-dot"></div>Online Coaching
+      </div>
+      <div class="marquee-item">
+        <div class="marquee-dot"></div>Body Transformation
+      </div>
+      <div class="marquee-item">
+        <div class="marquee-dot"></div>Nutrition Planning
+      </div>
+      <div class="marquee-item">
+        <div class="marquee-dot"></div>Mindset Coaching
+      </div>
+      <div class="marquee-item">
+        <div class="marquee-dot"></div>Victorious Essentials
+      </div>
+      <div class="marquee-item">
+        <div class="marquee-dot"></div>Dubai Based
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about section-pad" id="about">
+    <div class="about-grid">
+      <!-- Images removed as per user request -->
+      <div class="about-content-centered">
+        <div class="eyebrow reveal"><span>My Story</span></div>
+        <h2 class="h2 reveal stagger">More Than<br /><em>Reps & Sets.</em></h2>
+        <p class="body-text reveal stagger-2">I didn't start as a coach. I started as someone who used fitness to
+          survive — serving in the Armed Forces, relocating to Dubai, rebuilding after a serious health scare.</p>
+        <br />
+        <p class="body-text reveal stagger-2">Fitness was always the constant. Now I help others use it the same way —
+          not just to look better, but to become stronger in every part of life.</p>
+
+        <div class="about-quote-block reveal stagger-3">
+          <p>"Fitness saved my life more than once. Now I want it to save yours."</p>
+          <cite>— Viktor Ristic</cite>
+        </div>
+
+        <div class="cred-list reveal">
+          <div class="cred-item">Certified Personal Trainer & Nutritionist <span class="cred-arrow">→</span></div>
+          <div class="cred-item">Former Armed Forces Fitness Trainer <span class="cred-arrow">→</span></div>
+          <div class="cred-item">OCR Athlete & Gov Games Competitor <span class="cred-arrow">→</span></div>
+          <div class="cred-item">Founder of Victorious Essentials <span class="cred-arrow">→</span></div>
+          <div class="cred-item">Dubai-Based · Coaching Worldwide <span class="cred-arrow">→</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="programs section-pad" id="programs">
+    <div class="eyebrow reveal"><span>Coaching Programs</span></div>
+    <h2 class="h2 reveal">The Right<br /><em>Program</em> For You.</h2>
+    <p class="body-text reveal" style="margin-bottom:8px;">Every plan is built around your body, your schedule, and your
+      goals.</p>
+
+    <div class="prog-tabs reveal">
+      <div class="prog-tab active" data-panel="coaching">Coaching</div>
+      <div class="prog-tab" data-panel="nutrition">Nutrition</div>
+      <div class="prog-tab" data-panel="full">Full Package</div>
+    </div>
+
+    <div class="prog-panels">
+      <div class="prog-panel active" id="panel-coaching">
+        <div class="prog-card">
+          <div class="prog-num">01</div>
+          <div class="prog-tag">Foundation</div>
+          <div class="prog-name">Starter Program</div>
+          <p class="prog-desc">Build habits and knowledge to make fitness permanent.</p>
+          <ul class="prog-list">
+            <li>Custom 8-week training plan</li>
+            <li>Nutrition guidelines</li>
+            <li>Weekly check-ins</li>
+            <li>WhatsApp support</li>
+          </ul>
+          <a href="#contact" class="prog-cta">Apply Now <span class="prog-cta-arrow"></span></a>
+        </div>
+        <div class="prog-card featured">
+          <div class="prog-num">02</div>
+          <div class="prog-tag">Most Popular</div>
+          <div class="prog-name">12-Week Transformation</div>
+          <p class="prog-desc">The full system for visible, lasting change.</p>
+          <ul class="prog-list">
+            <li>Custom 12-week plan</li>
+            <li>Full macro-based meals</li>
+            <li>Bi-weekly video check-ins</li>
+            <li>Priority WhatsApp</li>
+            <li>Progress tracking</li>
+          </ul>
+          <a href="#contact" class="prog-cta">Apply Now <span class="prog-cta-arrow"></span></a>
+        </div>
+        <div class="prog-card">
+          <div class="prog-num">03</div>
+          <div class="prog-tag">Premium</div>
+          <div class="prog-name">Elite 1-on-1</div>
+          <p class="prog-desc">Fully personal. Maximum results.</p>
+          <ul class="prog-list">
+            <li>Fully personalised training</li>
+            <li>Daily check-ins</li>
+            <li>Weekly video sessions</li>
+            <li>Mindset coaching</li>
+            <li>Unlimited adjustments</li>
+          </ul>
+          <a href="#contact" class="prog-cta">Apply Now <span class="prog-cta-arrow"></span></a>
+        </div>
+      </div>
+
+      <div class="prog-panel" id="panel-nutrition">
+        <div class="prog-card">
+          <div class="prog-num">01</div>
+          <div class="prog-tag">Essentials</div>
+          <div class="prog-name">Nutrition Audit</div>
+          <p class="prog-desc">Deep dive into your current diet with a clear plan.</p>
+          <ul class="prog-list">
+            <li>Full diet analysis</li>
+            <li>Custom calorie targets</li>
+            <li>Macro breakdown</li>
+            <li>Meal timing guide</li>
+          </ul>
+          <a href="#contact" class="prog-cta">Apply Now <span class="prog-cta-arrow"></span></a>
+        </div>
+        <div class="prog-card featured">
+          <div class="prog-num">02</div>
+          <div class="prog-tag">Most Popular</div>
+          <div class="prog-name">Custom Meal Plan</div>
+          <p class="prog-desc">Personalised meals built for your life.</p>
+          <ul class="prog-list">
+            <li>7-day custom plan</li>
+            <li>Shopping list</li>
+            <li>Supplement guidance</li>
+            <li>Bi-weekly adjustments</li>
+          </ul>
+          <a href="#contact" class="prog-cta">Apply Now <span class="prog-cta-arrow"></span></a>
+        </div>
+        <div class="prog-card">
+          <div class="prog-num">03</div>
+          <div class="prog-tag">Advanced</div>
+          <div class="prog-name">Nutrition Mastery</div>
+          <p class="prog-desc">Eat for performance, body comp, and longevity.</p>
+          <ul class="prog-list">
+            <li>Everything in Custom Plan</li>
+            <li>Metabolic coaching</li>
+            <li>Refeeds & diet breaks</li>
+            <li>Monthly live sessions</li>
+          </ul>
+          <a href="#contact" class="prog-cta">Apply Now <span class="prog-cta-arrow"></span></a>
+        </div>
+      </div>
+
+      <div class="prog-panel" id="panel-full">
+        <div class="prog-card featured" style="width:100%;">
+          <div class="prog-num">VIP</div>
+          <div class="prog-tag">The Complete Package</div>
+          <div class="prog-name">Full Transformation</div>
+          <p class="prog-desc">Everything — training, nutrition, mindset, accountability, and direct access to Viktor.
+            For those who are completely serious.</p>
+          <ul class="prog-list">
+            <li>Custom training plan</li>
+            <li>Full nutrition coaching</li>
+            <li>Daily check-ins</li>
+            <li>Weekly video calls</li>
+            <li>Mindset coaching</li>
+            <li>Priority support</li>
+          </ul>
+          <a href="#contact" class="prog-cta">Apply Now <span class="prog-cta-arrow"></span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS STACKING CARDS -->
+  <section class="sc-section" id="results">
+    <div class="sc-header">
+      <div class="eyebrow reveal"><span>Client Results</span></div>
+      <h2 class="h2 reveal">Real People.<br /><em>Real Change.</em></h2>
+    </div>
+
+    <div class="sc-scroll-zone" id="scScrollZone">
+      <div class="sc-sticky" id="scSticky">
+        <div class="sc-cards-container" id="scCardsContainer">
+
+          <!-- Card 4 (bottom of stack) -->
+          <div class="sc-card" data-sc-index="3">
+            <div>
+              <div class="sc-card-stars">
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+              </div>
+              <p class="sc-quote">&ldquo;Never thought online coaching could be this personal. Dropped 10kg and hit a PR
+                deadlift in the same program.&rdquo;</p>
+            </div>
+            <div>
+              <div class="sc-divider"></div>
+              <div class="sc-person">
+                <img class="sc-avatar"
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+                  alt="Rami S." />
+                <div>
+                  <div class="sc-name">Rami S.</div>
+                  <div class="sc-detail">Lost 10kg &middot; UAE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="sc-card" data-sc-index="2">
+            <div>
+              <div class="sc-card-stars">
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+              </div>
+              <p class="sc-quote">&ldquo;The check-ins kept me going when I wanted to quit. Best investment I&rsquo;ve
+                ever made in myself.&rdquo;</p>
+            </div>
+            <div>
+              <div class="sc-divider"></div>
+              <div class="sc-person">
+                <img class="sc-avatar"
+                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
+                  alt="James R." />
+                <div>
+                  <div class="sc-name">James R.</div>
+                  <div class="sc-detail">Gained 8kg &middot; Australia</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="sc-card" data-sc-index="1">
+            <div>
+              <div class="sc-card-stars">
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+              </div>
+              <p class="sc-quote">&ldquo;I&rsquo;d tried everything. Viktor&rsquo;s approach was the first thing that
+                fit my actual lifestyle. Three months in &mdash; completely different person.&rdquo;</p>
+            </div>
+            <div>
+              <div class="sc-divider"></div>
+              <div class="sc-person">
+                <img class="sc-avatar"
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80"
+                  alt="Marcus T." />
+                <div>
+                  <div class="sc-name">Marcus T.</div>
+                  <div class="sc-detail">Body Recomp &middot; UK</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 1 (top of stack) -->
+          <div class="sc-card" data-sc-index="0">
+            <div>
+              <div class="sc-card-stars">
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+                <svg class="sc-star" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                </svg>
+              </div>
+              <p class="sc-quote">&ldquo;Viktor completely changed how I see training. Lost 14kg in 12 weeks and for the
+                first time, I actually kept it off.&rdquo;</p>
+            </div>
+            <div>
+              <div class="sc-divider"></div>
+              <div class="sc-person">
+                <img class="sc-avatar"
+                  src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=100&auto=format&fit=crop&q=80"
+                  alt="Ahmed K." />
+                <div>
+                  <div class="sc-name">Ahmed K.</div>
+                  <div class="sc-detail">Lost 14kg &middot; Dubai, UAE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Progress dots -->
+        <div class="sc-progress" id="scProgress">
+          <div class="sc-dot active"></div>
+          <div class="sc-dot"></div>
+          <div class="sc-dot"></div>
+          <div class="sc-dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="testi-card">
+    <div class="testi-stars">
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+    </div>
+    <p class="testi-quote">"Viktor completely changed how I see training. Lost 14kg in 12 weeks and for the first
+      time, I actually kept it off."</p>
+    <div class="testi-divider"></div>
+    <div class="testi-name">Ahmed K.</div>
+    <div class="testi-detail">Lost 14kg · Dubai, UAE</div>
+
+    <!-- ESSENTIALS SCROLL EXPAND -->
+    <section class="scroll-expand-section" id="essentials">
+      <div class="scroll-expand-sticky" id="seSticky">
+        <div class="se-bg"></div>
+
+        <!-- Top text: eyebrow + title left side -->
+        <div class="se-text se-text-top" id="seTextTop">
+          <div class="se-eyebrow">Victorious Essentials</div>
+          <h2 class="se-title">Crafted for <em>Prestige.</em></h2>
+        </div>
+
+        <!-- Expanding video -->
+        <div class="se-video-wrap" id="seVideoWrap">
+          <video autoplay muted loop playsinline id="seVideo">
+            <source src="assets/video/essentials-promo.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <!-- Bottom text: scroll hint -->
+        <div class="se-text se-text-bottom" id="seTextBottom">
+          <div class="se-scroll-hint">Scroll to Expand</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKING -->
+    <section class="booking section-pad" id="contact">
+      <div class="booking-grid">
+        <div>
+          <div class="eyebrow reveal"><span>Work With Viktor</span></div>
+          <h2 class="h2 reveal">Ready to<br /><em>Begin?</em></h2>
+          <br />
+          <form class="reveal">
+            <div class="form-field">
+              <label class="f-label">Name</label>
+              <input class="f-input" type="text" placeholder="Your full name" />
+            </div>
+            <div class="form-field">
+              <label class="f-label">Email</label>
+              <input class="f-input" type="email" placeholder="your@email.com" />
+            </div>
+            <div class="form-field">
+              <label class="f-label">Instagram</label>
+              <input class="f-input" type="text" placeholder="@yourhandle" />
+            </div>
+            <div class="form-field">
+              <label class="f-label">Program</label>
+              <select class="f-select">
+                <option>Starter Program</option>
+                <option>12-Week Transformation</option>
+                <option>Elite 1-on-1</option>
+                <option>Full Transformation</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="f-label">Your Goals</label>
+              <textarea class="f-textarea" placeholder="Where are you now and where do you want to be..."></textarea>
+            </div>
+            <button type="submit" class="f-submit"><span>Submit Application</span></button>
+          </form>
+        </div>
+
+        <div class="reveal">
+          <p class="body-text" style="margin-bottom:32px;">Limited spots each month. Fill in the form and Viktor will
+            get
+            back to you within 24 hours.</p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="c-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M8 1C5.24 1 3 3.24 3 6C3 9.5 8 15 8 15C8 15 13 9.5 13 6C13 3.24 10.76 1 8 1ZM8 7.5C7.17 7.5 6.5 6.83 6.5 6C6.5 5.17 7.17 4.5 8 4.5C8.83 4.5 9.5 5.17 9.5 6C9.5 6.83 8.83 7.5 8 7.5Z"
+                    fill="#B8975A" />
+                </svg>
+              </div>
+              <div>
+                <div class="c-label">Location</div>
+                <div class="c-val">Dubai, UAE · Worldwide</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="c-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <rect x="2" y="2" width="12" height="12" rx="3.5" stroke="#B8975A" stroke-width="1.2" />
+                  <circle cx="8" cy="8" r="2.5" stroke="#B8975A" stroke-width="1.2" />
+                  <circle cx="11.5" cy="4.5" r="0.8" fill="#B8975A" />
+                </svg>
+              </div>
+              <div>
+                <div class="c-label">Instagram</div>
+                <div class="c-val">@victorious_fit</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="c-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="6" stroke="#B8975A" stroke-width="1.2" />
+                  <path d="M8 4V8L10.5 10.5" stroke="#B8975A" stroke-width="1.2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div>
+                <div class="c-label">Response</div>
+                <div class="c-val">Within 24 hours</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="c-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M8 2L9.8 6.2L14.5 6.6L11 9.7L12.1 14.3L8 11.8L3.9 14.3L5 9.7L1.5 6.6L6.2 6.2L8 2Z"
+                    stroke="#B8975A" stroke-width="1.2" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div>
+                <div class="c-label">Spots</div>
+                <div class="c-val">Limited per month</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="f-logo">Viktor Ristic</div>
+      <div class="f-sub">Fitness Coach · Dubai, UAE</div>
+      <p class="f-desc">Helping people build stronger bodies, sharper minds, and better lives.</p>
+      <div class="f-socials">
+        <a href="https://instagram.com/victorious_fit" target="_blank" rel="noopener" class="f-social"
+          aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="2" y="2" width="12" height="12" rx="3.5" stroke="rgba(245,240,232,0.5)" stroke-width="1.2" />
+            <circle cx="8" cy="8" r="2.5" stroke="rgba(245,240,232,0.5)" stroke-width="1.2" />
+            <circle cx="11.5" cy="4.5" r="0.8" fill="rgba(245,240,232,0.5)" />
+          </svg>
+        </a>
+        <a href="#" class="f-social" aria-label="YouTube">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="1" y="3" width="14" height="10" rx="2.5" stroke="rgba(245,240,232,0.5)" stroke-width="1.2" />
+            <path d="M6.5 5.5L10.5 8L6.5 10.5V5.5Z" fill="rgba(245,240,232,0.5)" />
+          </svg>
+        </a>
+        <a href="#" class="f-social" aria-label="TikTok">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path
+              d="M10 2C10 4 12 5 13 5V7C12 7 10.5 6.5 10 6V11C10 13.2 8.2 15 6 15C3.8 15 2 13.2 2 11C2 8.8 3.8 7 6 7C6.4 7 6.7 7.05 7 7.15V9.2C6.7 9.07 6.36 9 6 9C4.9 9 4 9.9 4 11C4 12.1 4.9 13 6 13C7.1 13 8 12.1 8 11V2H10Z"
+              fill="rgba(245,240,232,0.5)" />
+          </svg>
+        </a>
+      </div>
+      <div class="f-cols">
+        <div class="f-col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#programs">Programs</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="f-col">
+          <h4>Brand</h4>
+          <ul>
+            <li><a href="#">Victorious Essentials</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Apply Now</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="f-bottom">
+        <p class="f-copy">© 2026 Viktor Ristic</p>
+        <p class="f-copy">victoriousfitness.me</p>
+      </div>
+    </footer>
+
+    <script>
+      // Loader
+      window.addEventListener('load', () => {
+        setTimeout(() => document.getElementById('loader').classList.add('hidden'), 2000);
+      });
+
+      // Nav scroll
+      window.addEventListener('scroll', () => {
+        document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+      });
+
+      // Mobile menu
+      const menu = document.getElementById('mobileMenu');
+      document.getElementById('menuBtn').addEventListener('click', () => menu.classList.add('open'));
+      document.getElementById('menuClose').addEventListener('click', () => menu.classList.remove('open'));
+      function closeMenu() { menu.classList.remove('open'); }
+
+      // Scroll reveal
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+      // Program tabs
+      document.querySelectorAll('.prog-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.prog-tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.prog-panel').forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+        });
+      });
+
+      // Testimonial scroll indicator
+      const testiWrap = document.querySelector('.testi-scroll-wrap');
+      const testiDots = document.querySelectorAll('.testi-ind-dot');
+      if (testiWrap) {
+        testiWrap.addEventListener('scroll', () => {
+          const idx = Math.round(testiWrap.scrollLeft / (testiWrap.scrollWidth / 4));
+          testiDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        });
+      }
+
+      // Touch-friendly: smooth scroll for CTA buttons
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const target = document.querySelector(a.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Parallax on hero image (mobile-friendly, uses scroll)
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            const heroImg = document.querySelector('.hero-img-col img');
+            if (heroImg && window.scrollY < window.innerHeight) {
+              heroImg.style.transform = `translateY(${window.scrollY * 0.3}px) scale(1.05)`;
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script>
+      /* ── LENIS SMOOTH SCROLL ── */
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        if (window._seUpdate) window._seUpdate();
+        if (window._scUpdate) window._scUpdate();
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      /* ── RIPPLE EFFECT ── */
+      function createRipple(event) {
+        const button = event.currentTarget;
+        const circle = document.createElement("span");
+        const diameter = Math.max(button.clientWidth, button.clientHeight);
+        const radius = diameter / 2;
+        const rect = button.getBoundingClientRect();
+
+        circle.style.width = circle.style.height = `${diameter}px`;
+        circle.style.left = `${event.clientX - rect.left - radius}px`;
+        circle.style.top = `${event.clientY - rect.top - radius}px`;
+        circle.classList.add("ripple");
+
+        const ripple = button.getElementsByClassName("ripple")[0];
+        if (ripple) { ripple.remove(); }
+
+        button.appendChild(circle);
+      }
+      const buttons = document.querySelectorAll("button, .btn-solid, .btn-outline, .nav-cta-btn, .prog-tab, .f-submit");
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", createRipple);
+      });
+
+      /* ── MAGNETIC BUTTON ── */
+      const menuBtn = document.getElementById('menuBtn');
+      if (menuBtn) {
+        menuBtn.addEventListener('mousemove', (e) => {
+          const rect = menuBtn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          menuBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        menuBtn.addEventListener('mouseleave', () => {
+          menuBtn.style.transform = 'translate(0, 0)';
+        });
+      }
+
+      /* ── SCROLL EXPANSION EFFECT ── */
+      (function () {
+        const section = document.getElementById('essentials');
+        const videoWrap = document.getElementById('seVideoWrap');
+        const textTop = document.getElementById('seTextTop');
+        const textBottom = document.getElementById('seTextBottom');
+        if (!section || !videoWrap) return;
+
+        const isMobile = window.innerWidth < 768;
+        const startW = isMobile ? 260 : 340;
+        const startH = isMobile ? 360 : 460;
+
+        function updateExpansion() {
+          const rect = section.getBoundingClientRect();
+          const sectionH = section.offsetHeight;
+          const viewH = window.innerHeight;
+          // progress 0→1 as section scrolls through viewport
+          const scrolled = -rect.top;
+          const scrollable = sectionH - viewH;
+          const progress = Math.min(Math.max(scrolled / scrollable, 0), 1);
+
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+
+          const w = startW + progress * (vw - startW);
+          const h = startH + progress * (vh - startH);
+          const radius = 16 * (1 - progress);
+
+          videoWrap.style.width = w + 'px';
+          videoWrap.style.height = h + 'px';
+          videoWrap.style.borderRadius = radius + 'px';
+          videoWrap.style.boxShadow = `0 ${30 * (1 - progress)}px ${80 * (1 - progress)}px rgba(0,0,0,${0.6 * (1 - progress)})`;
+
+          const textOpacity = Math.max(0, 1 - progress * 2.5);
+          const textShift = progress * 40;
+          if (textTop) {
+            textTop.style.opacity = textOpacity;
+            textTop.style.transform = `translateX(-50%) translateY(-${textShift}px)`;
+          }
+          if (textBottom) {
+            textBottom.style.opacity = textOpacity;
+            textBottom.style.transform = `translateX(-50%) translateY(${textShift}px)`;
+          }
+        }
+
+        // Set initial size
+        videoWrap.style.width = startW + 'px';
+        videoWrap.style.height = startH + 'px';
+
+        // Expose for Lenis RAF loop
+        window._seUpdate = updateExpansion;
+
+        window.addEventListener('resize', updateExpansion, { passive: true });
+        updateExpansion();
+      })();
+
+      /* ── STACKING CARDS ANIMATION ── */
+      (function () {
+        const scrollZone = document.getElementById('scScrollZone');
+        const cards = Array.from(document.querySelectorAll('.sc-card'));
+        const dots = Array.from(document.querySelectorAll('.sc-dot'));
+        if (!scrollZone || !cards.length) return;
+
+        const N = cards.length;
+
+        function setInitialStack() {
+          cards.forEach((card, i) => {
+            const stackPos = N - 1 - i;
+            card.style.zIndex = i + 1;
+            card.style.transform = `translateZ(${i * -8}px) translateY(${stackPos * 10}px) rotate(${stackPos * 1.5}deg)`;
+            card.style.opacity = i === N - 1 ? '1' : String(0.65 + (i / N) * 0.35);
+          });
+        }
+        setInitialStack();
+
+        function updateCards() {
+          const rect = scrollZone.getBoundingClientRect();
+          const sectionH = scrollZone.offsetHeight;
+          const viewH = window.innerHeight;
+          const scrolled = -rect.top;
+          const scrollable = sectionH - viewH;
+          const totalProgress = Math.min(Math.max(scrolled / scrollable, 0), 1);
+          const cardProgress = totalProgress * N;
+          const activeIdx = Math.min(Math.floor(cardProgress), N - 1);
+
+          dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIdx));
+
+          cards.forEach((card, i) => {
+            const cardStart = i / N;
+            const cardEnd = (i + 1) / N;
+            const localP = Math.min(Math.max((totalProgress - cardStart) / (1 / N), 0), 1);
+
+            if (totalProgress < cardStart) {
+              const stackPos = N - 1 - i;
+              card.style.zIndex = i + 1;
+              card.style.transform = `translateZ(${i * -8}px) translateY(${stackPos * 10}px) rotate(${stackPos * 1.5}deg)`;
+              card.style.opacity = String(0.65 + (i / N) * 0.35);
+            } else if (totalProgress >= cardEnd) {
+              card.style.zIndex = N + i;
+              card.style.transform = `translateY(-180%) rotate(-8deg)`;
+              card.style.opacity = '0';
+            } else {
+              card.style.zIndex = N + i;
+              const flyY = localP * -180;
+              const flyRotate = localP * -8;
+              const fadeOut = 1 - Math.max(0, (localP - 0.6) / 0.4);
+              card.style.transform = `translateY(${flyY}%) rotate(${flyRotate}deg)`;
+              card.style.opacity = String(fadeOut);
+            }
+          });
+        }
+
+        window._scUpdate = updateCards;
+        window.addEventListener('resize', updateCards, { passive: true });
+        updateCards();
+      })();
+    </script>
+</body>
+
+</html>
