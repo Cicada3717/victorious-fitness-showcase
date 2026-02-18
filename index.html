@@ -6,24 +6,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Viktor Ristic &ndash; Fitness Coach</title>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Outfit:wght@200;300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
   <style>
     :root {
-      --cream: #F5F0E8;
-      --cream-dark: #EDE5D8;
-      --warm: #FAF7F2;
-      --brown: #5C3D1E;
-      --brown-mid: #7A5230;
-      --brown-light: #A67C52;
-      --wood: #C4956A;
-      --wood-light: #DEB896;
-      --gold: #B8975A;
-      --ink: #1A140D;
-      --ink-mid: #2E2318;
-      --muted: #8A7560;
-      --border: rgba(92, 61, 30, 0.12);
-      --green: #2C3E2D;
+      /* New Semantic Palette (Premium Athlete) */
+      --bg-main: #050505;
+      /* Deep Black */
+      --bg-secondary: #0D0D0D;
+      /* Charcoal */
+      --bg-card: rgba(255, 255, 255, 0.05);
+      /* Glass */
+
+      --text-main: #FFFFFF;
+      /* White */
+      --text-muted: #B0B0B0;
+      /* Grey */
+
+      --accent-primary: #D4AF37;
+      /* Gold */
+      --accent-secondary: #E63946;
+      /* Kinetic Red */
+
+      --font-heading: 'Oswald', sans-serif;
+      --font-body: 'Manrope', sans-serif;
+
+      /* Legacy Mappings (Inverting to Dark Theme) */
+      --cream: var(--bg-main);
+      --cream-dark: var(--bg-secondary);
+      --warm: var(--bg-secondary);
+
+      --ink: var(--text-main);
+      /* Text becomes Light */
+      --ink-mid: var(--text-muted);
+
+      --brown: var(--text-main);
+      --brown-mid: var(--text-muted);
+      --brown-light: var(--accent-primary);
+
+      --wood: var(--accent-primary);
+      --wood-light: var(--accent-primary);
+      --gold: var(--accent-primary);
+
+      --border: rgba(255, 255, 255, 0.1);
+      --green: var(--accent-secondary);
     }
 
     *,
@@ -40,9 +66,9 @@
     }
 
     body {
-      font-family: 'Outfit', sans-serif;
-      background: var(--warm);
-      color: var(--ink);
+      font-family: var(--font-body);
+      background: var(--bg-main);
+      color: var(--text-main);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       line-height: 1.6;
@@ -54,30 +80,31 @@
     h2,
     h3,
     h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      /* Lighter by default */
+      font-family: var(--font-heading);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       line-height: 1.1;
-      color: var(--ink);
+      color: var(--text-main);
     }
 
     h1 em,
     h2 em,
     h3 em {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
-      font-style: italic;
-      color: var(--gold);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-style: normal;
+      color: var(--accent-primary);
       /* Highlight color */
     }
 
     .eyebrow {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font-body);
       text-transform: uppercase;
       letter-spacing: 3px;
       font-size: 11px;
-      font-weight: 500;
-      color: var(--gold);
+      font-weight: 600;
+      color: var(--accent-primary);
       margin-bottom: 12px;
       display: flex;
       align-items: center;
@@ -106,7 +133,7 @@
     .loader {
       position: fixed;
       inset: 0;
-      background: var(--ink);
+      background: var(--bg-secondary);
       z-index: 9000;
       display: flex;
       align-items: center;
@@ -123,10 +150,10 @@
     }
 
     .loader-logo {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 36px;
       font-weight: 300;
-      color: var(--cream);
+      color: var(--text-main);
       letter-spacing: 6px;
       text-transform: uppercase;
       opacity: 0;
@@ -182,13 +209,13 @@
     }
 
     nav.scrolled {
-      background: rgba(250, 247, 242, 0.96);
+      background: rgba(5, 5, 5, 0.90);
       backdrop-filter: blur(16px);
       box-shadow: 0 1px 0 var(--border);
     }
 
     .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 18px;
       font-weight: 400;
       letter-spacing: 1px;
@@ -203,19 +230,20 @@
     }
 
     .nav-cta-btn {
-      background: var(--ink);
-      color: var(--cream);
+      background: var(--accent-primary);
+      color: var(--bg-main);
       padding: 10px 20px;
       font-size: 10px;
-      font-weight: 500;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: all 0.2s;
     }
 
     .nav-cta-btn:hover {
-      background: var(--brown);
+      background: var(--text-main);
+      color: var(--bg-main);
     }
 
     .nav-menu-btn {
@@ -235,7 +263,7 @@
       display: block;
       width: 16px;
       height: 1px;
-      background: var(--ink);
+      background: var(--bg-secondary);
       transition: transform 0.3s;
     }
 
@@ -243,7 +271,7 @@
     .mobile-menu {
       position: fixed;
       inset: 0;
-      background: var(--ink);
+      background: var(--bg-secondary);
       z-index: 600;
       display: flex;
       flex-direction: column;
@@ -261,10 +289,10 @@
     }
 
     .mobile-menu a {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 36px;
       font-weight: 300;
-      color: var(--cream);
+      color: var(--text-main);
       text-decoration: none;
       padding: 16px 0;
       opacity: 0;
@@ -302,7 +330,7 @@
       top: 20px;
       right: 20px;
       font-size: 28px;
-      color: var(--cream);
+      color: var(--text-main);
       background: none;
       border: none;
       cursor: pointer;
@@ -338,7 +366,7 @@
     .hero {
       position: relative;
       overflow: hidden;
-      background: var(--ink);
+      background: var(--bg-secondary);
       /* Dark background for premium feel */
     }
 
@@ -356,7 +384,7 @@
       justify-content: center;
       position: relative;
       z-index: 2;
-      background: var(--ink);
+      background: var(--bg-secondary);
       /* Ensure text is readable */
     }
 
@@ -368,7 +396,7 @@
       /* Gradient Mask: Fades from transparent (left) to opaque (right) */
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 100%);
       mask-image: linear-gradient(to right, transparent 0%, black 25%, black 100%);
-      background: var(--ink);
+      background: var(--bg-secondary);
       /* Match background behind fade */
     }
 
@@ -379,7 +407,7 @@
       inset: 0;
       /* Heavy inner shadow + Gold tint */
       background: radial-gradient(circle at 70% 40%, rgba(166, 124, 82, 0.1) 0%, rgba(26, 20, 13, 0.6) 80%, rgba(26, 20, 13, 1) 100%);
-      box-shadow: inset 100px 0 150px var(--ink);
+      box-shadow: inset 100px 0 150px var(--bg-main);
       /* Left edge fade */
       pointer-events: none;
       z-index: 2;
@@ -438,11 +466,11 @@
     }
 
     .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 48px;
       font-weight: 300;
       line-height: 1.08;
-      color: var(--cream);
+      color: var(--text-main);
       margin-bottom: 16px;
     }
 
@@ -454,7 +482,7 @@
     .hero-desc {
       font-size: 14px;
       line-height: 1.7;
-      color: rgba(245, 240, 232, 0.6);
+      color: rgba(255, 255, 255, 0.6);
       font-weight: 300;
       margin-bottom: 28px;
       max-width: 380px;
@@ -467,20 +495,20 @@
     }
 
     .btn-solid {
-      background: var(--cream);
-      color: var(--ink);
+      background: var(--accent-primary);
+      color: var(--bg-main);
       padding: 14px 32px;
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: all 0.2s;
     }
 
     .btn-outline {
-      border: 1px solid rgba(245, 240, 232, 0.3);
-      color: var(--cream);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: var(--text-main);
       padding: 14px 28px;
       font-size: 10px;
       font-weight: 500;
@@ -499,14 +527,14 @@
       display: flex;
       gap: 0;
       margin-top: 32px;
-      border-top: 1px solid rgba(245, 240, 232, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .h-stat {
       flex: 1;
       padding: 20px 0;
       text-align: center;
-      border-right: 1px solid rgba(245, 240, 232, 0.06);
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .h-stat:last-child {
@@ -514,7 +542,7 @@
     }
 
     .h-stat-num {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 28px;
       color: var(--wood-light);
       line-height: 1;
@@ -524,13 +552,13 @@
       font-size: 9px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(245, 240, 232, 0.35);
+      color: rgba(255, 255, 255, 0.35);
       margin-top: 4px;
     }
 
     /* -- MARQUEE -- */
     .marquee {
-      background: var(--ink);
+      background: var(--bg-secondary);
       overflow: hidden;
       padding: 14px 0;
       white-space: nowrap;
@@ -549,7 +577,7 @@
       font-size: 9px;
       letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: rgba(245, 240, 232, 0.35);
+      color: rgba(255, 255, 255, 0.35);
       flex-shrink: 0;
     }
 
@@ -598,7 +626,7 @@
     }
 
     .h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 36px;
       font-weight: 300;
       line-height: 1.15;
@@ -673,7 +701,7 @@
     }
 
     .about-badge-val {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 22px;
       color: var(--ink);
     }
@@ -686,7 +714,7 @@
     }
 
     .about-quote-block p {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 17px;
       font-style: italic;
       color: var(--ink);
@@ -759,8 +787,8 @@
     }
 
     .prog-tab.active {
-      background: var(--ink);
-      color: var(--cream);
+      background: var(--bg-secondary);
+      color: var(--text-main);
     }
 
     .prog-panel {
@@ -783,12 +811,12 @@
     }
 
     .prog-card.featured {
-      background: var(--ink);
+      background: var(--bg-secondary);
       border-color: var(--ink);
     }
 
     .prog-card .prog-num {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 56px;
       font-weight: 300;
       color: var(--border);
@@ -797,7 +825,7 @@
     }
 
     .prog-card.featured .prog-num {
-      color: rgba(245, 240, 232, 0.06);
+      color: rgba(255, 255, 255, 0.06);
     }
 
     .prog-tag {
@@ -813,7 +841,7 @@
     }
 
     .prog-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 24px;
       font-weight: 400;
       color: var(--ink);
@@ -821,7 +849,7 @@
     }
 
     .prog-card.featured .prog-name {
-      color: var(--cream);
+      color: var(--text-main);
     }
 
     .prog-desc {
@@ -832,7 +860,7 @@
     }
 
     .prog-card.featured .prog-desc {
-      color: rgba(245, 240, 232, 0.5);
+      color: rgba(255, 255, 255, 0.5);
     }
 
     .prog-list {
@@ -858,7 +886,7 @@
     }
 
     .prog-card.featured .prog-list li {
-      color: rgba(245, 240, 232, 0.65);
+      color: rgba(255, 255, 255, 0.65);
     }
 
     .prog-list li::before {
@@ -942,7 +970,7 @@
       position: absolute;
       top: -8px;
       right: 20px;
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 100px;
       color: var(--border);
       line-height: 1;
@@ -963,7 +991,7 @@
     }
 
     .testi-quote {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 17px;
       font-style: italic;
       font-weight: 300;
@@ -1015,7 +1043,7 @@
 
     /* -- STACKING CARDS TESTIMONIALS -- */
     .sc-section {
-      background: var(--ink);
+      background: var(--bg-secondary);
       padding: 80px 0 0;
     }
 
@@ -1082,11 +1110,11 @@
     }
 
     .sc-quote {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(18px, 4vw, 22px);
       font-weight: 300;
       font-style: italic;
-      color: var(--cream);
+      color: var(--text-main);
       line-height: 1.55;
       flex: 1;
     }
@@ -1118,7 +1146,7 @@
       font-family: 'Outfit', sans-serif;
       font-size: 14px;
       font-weight: 500;
-      color: var(--cream);
+      color: var(--text-main);
       letter-spacing: 0.5px;
     }
 
@@ -1160,7 +1188,7 @@
       position: relative;
       height: 300vh;
       /* Scroll distance */
-      background: var(--ink);
+      background: var(--bg-secondary);
     }
 
     .scroll-expand-sticky {
@@ -1171,7 +1199,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--ink);
+      background: var(--bg-secondary);
     }
 
     /* Background layer (fades out as video expands) */
@@ -1235,10 +1263,10 @@
     }
 
     .se-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(40px, 8vw, 90px);
       font-weight: 300;
-      color: var(--cream);
+      color: var(--text-main);
       line-height: 1;
       white-space: nowrap;
     }
@@ -1253,7 +1281,7 @@
       font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: rgba(245, 240, 232, 0.4);
+      color: rgba(255, 255, 255, 0.4);
       white-space: nowrap;
       animation: se-pulse 2s ease-in-out infinite;
     }
@@ -1279,7 +1307,7 @@
     }
 
     .equipment .h2 {
-      color: var(--cream);
+      color: var(--text-main);
     }
 
     .equipment .h2 em {
@@ -1287,7 +1315,7 @@
     }
 
     .equipment .body-text {
-      color: rgba(245, 240, 232, 0.5);
+      color: rgba(255, 255, 255, 0.5);
     }
 
     .equip-img-wrap {
@@ -1297,7 +1325,7 @@
       /* Blend sides: Fade left and right edges */
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
       mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-      background: var(--ink);
+      background: var(--bg-secondary);
       height: auto;
       /* Allow content to dictate heght */
     }
@@ -1349,7 +1377,7 @@
     }
 
     .equip-label-val {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 16px;
       color: var(--ink);
       font-style: italic;
@@ -1385,13 +1413,13 @@
     .feat-title {
       font-size: 11px;
       font-weight: 500;
-      color: var(--cream);
+      color: var(--text-main);
       margin-bottom: 4px;
     }
 
     .feat-desc {
       font-size: 10px;
-      color: rgba(245, 240, 232, 0.35);
+      color: rgba(255, 255, 255, 0.35);
       line-height: 1.5;
     }
 
@@ -1461,8 +1489,8 @@
     .f-submit {
       width: 100%;
       padding: 16px;
-      background: var(--ink);
-      color: var(--cream);
+      background: var(--bg-secondary);
+      color: var(--text-main);
       border: none;
       font-family: 'Inter', sans-serif;
       font-size: 10px;
@@ -1517,15 +1545,15 @@
 
     /* -- FOOTER -- */
     footer {
-      background: var(--ink);
+      background: var(--bg-secondary);
       padding: 60px 24px 32px;
     }
 
     .f-logo {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 24px;
       font-weight: 300;
-      color: var(--cream);
+      color: var(--text-main);
       letter-spacing: 2px;
       margin-bottom: 6px;
     }
@@ -1540,7 +1568,7 @@
 
     .f-desc {
       font-size: 12px;
-      color: rgba(245, 240, 232, 0.3);
+      color: rgba(255, 255, 255, 0.3);
       line-height: 1.7;
       max-width: 280px;
       margin-bottom: 24px;
@@ -1573,7 +1601,7 @@
       font-size: 9px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(245, 240, 232, 0.3);
+      color: rgba(255, 255, 255, 0.3);
       margin-bottom: 16px;
       font-weight: 500;
     }
@@ -1587,7 +1615,7 @@
 
     .f-col a {
       font-size: 13px;
-      color: rgba(245, 240, 232, 0.5);
+      color: rgba(255, 255, 255, 0.5);
       text-decoration: none;
     }
 
@@ -1603,14 +1631,15 @@
 
     .f-copy {
       font-size: 10px;
-      color: rgba(245, 240, 232, 0.2);
+      color: rgba(255, 255, 255, 0.2);
     }
 
     /* -- REVEAL -- */
     .reveal {
       opacity: 0;
       transform: translateY(28px);
-      transition: opacity 0.7s cubic-bezier(.215, .61, .355, 1), transform 0.7s cubic-bezier(.215, .61, .355, 1);
+      transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .reveal.visible {
@@ -2524,7 +2553,7 @@
   <script>
     /* -- LENIS SMOOTH SCROLL -- */
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
